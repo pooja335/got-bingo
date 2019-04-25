@@ -42,7 +42,7 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[] 
     chosenCharacters: this.baseCharacters
   }
 
-  handleCheckboxChange = (event: FormEvent) => {
+  handleCheckboxChange = (event: FormEvent): void => {
     let { chosenCharacters } = this.state
     const target = event.target as HTMLInputElement
 
@@ -55,24 +55,33 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[] 
     this.setState({ chosenCharacters })
   }
 
+  generateBoard = () => {
+
+  }
+
   render() {
     return (
-      <div>
-        {this.baseCharacters.map((character, index) =>
-          <Checkbox
-            key={index}
-            label={character}
-            checked
-            disabled
-          />
-        )}
-        {this.optionalCharacters.map((character, index) =>
-          <Checkbox
-            key={30 + index}
-            label={character}
-            onChange={this.handleCheckboxChange}
-          />
-        )}
+      <div style={{display: 'flex'}}>
+        <div>
+          {this.baseCharacters.map((character, index) =>
+            <Checkbox
+              key={index}
+              label={character}
+              checked
+              disabled
+            />
+          )}
+        </div>
+        <div>
+          {this.optionalCharacters.map((character, index) =>
+            <Checkbox
+              key={30 + index}
+              label={character}
+              onChange={this.handleCheckboxChange}
+            />
+          )}
+        </div>
+        <button disabled onClick={this.generateBoard}>Generate Board</button>
       </div>
     )
   }

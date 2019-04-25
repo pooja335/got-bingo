@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 
 export const Checkbox: FC<CheckBoxProps> = (props) => {
   return (
-    <label style={{display: 'block'}}>
+    <label style={{display: 'flex'}}>
       <input
         type="checkbox"
         name={ props.label }
