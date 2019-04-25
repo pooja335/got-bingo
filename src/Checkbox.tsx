@@ -5,12 +5,10 @@ export const Checkbox: FC<CheckBoxProps> = (props) => {
     <label style={{display: 'block'}}>
       <input
         type="checkbox"
-        // id={id}
-        // name={name}
+        name={ props.label }
         checked={ props.checked }
-        // defaultChecked={defaultChecked}
         onChange={ props.onChange }
-        disabled={props.disabled}
+        disabled={ props.disabled }
       />
       { props.label }
     </label>
@@ -18,8 +16,9 @@ export const Checkbox: FC<CheckBoxProps> = (props) => {
 }
 
 type CheckBoxProps = {
-  checked: boolean,
-  onChange: any,
+  checked?: boolean,
+  onChange?: any,
   label: string,
-  disabled: boolean
+  key: number,
+  disabled?: boolean
 }

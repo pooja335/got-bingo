@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, FormEvent } from 'react'
 import { Checkbox } from './Checkbox'
 
 export class CreateBoardForm extends Component<{}, { chosenCharacters: string[] }> {
@@ -39,9 +39,21 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[] 
   ]
 
   state = {
-    chosenCharacters: ["test"]
+    chosenCharacters: this.baseCharacters
   }
 
+  handleCheckboxChange = (event: FormEvent) => {
+    let { chosenCharacters } = this.state
+    const target = event.target as HTMLInputElement
+
+    if (target.checked) {
+      chosenCharacters.push(target.name)
+    } else {
+      chosenCharacters = chosenCharacters.filter((character: string) => character !== target.name)
+    }
+
+    this.setState({ chosenCharacters })
+  }
 
   render() {
     return (
@@ -52,7 +64,13 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[] 
             label={character}
             checked
             disabled
-            onChange={() => console.log('hello')}
+          />
+        )}
+        {this.optionalCharacters.map((character, index) =>
+          <Checkbox
+            key={30 + index}
+            label={character}
+            onChange={this.handleCheckboxChange}
           />
         )}
       </div>
