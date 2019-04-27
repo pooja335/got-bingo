@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 
-export const Checkbox: FC<CheckBoxProps> = (props) => {
+export const Checkbox: FC<CheckboxProps> = (props) => {
   return (
     <label className='checkbox-label'>
       <input
@@ -15,7 +15,7 @@ export const Checkbox: FC<CheckBoxProps> = (props) => {
   )
 }
 
-type CheckBoxProps = {
+type CheckboxProps = {
   checked?: boolean,
   onChange?: any,
   label: string,
