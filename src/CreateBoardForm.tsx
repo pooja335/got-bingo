@@ -2,7 +2,7 @@ import React, { Component, FormEvent } from 'react'
 import { remove, shuffle } from 'lodash'
 import { Checkbox } from './Checkbox'
 
-export class CreateBoardForm extends Component<{}, { chosenCharacters: string[], showBoard: boolean }> {
+export class CreateBoardForm extends Component<{}, { chosenCharacters: string[], showBoard: boolean, board: string[] }> {
   baseCharacters: string[] = [
     "Arya Stark",
     "Sansa Stark",
@@ -42,8 +42,9 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[],
   ]
 
   state = {
-    chosenCharacters: [...this.baseCharacters],
-    showBoard: false
+    chosenCharacters: [] as string[],
+    showBoard: false,
+    board: [] as string[]
   }
 
   handleCheckboxChange = (event: FormEvent): void => {
@@ -60,12 +61,12 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[],
   }
 
   shuffleBoard = (): void => {
-    const newOrder: string[] = shuffle(this.state.chosenCharacters)
-    this.setState({ showBoard: true, chosenCharacters: newOrder })
+    const board: string[] = shuffle(this.baseCharacters.concat(this.state.chosenCharacters))
+    this.setState({ showBoard: true, board })
   }
 
   render() {
-    const buttonDisabled: boolean = this.state.chosenCharacters.length !== 25
+    const buttonDisabled: boolean = this.state.chosenCharacters.length + this.baseCharacters.length !== 25
 
     return (
       <div className='create-board-form'>
@@ -98,7 +99,7 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[],
         <div className='board-generation'>
           {this.state.showBoard &&
             <div className='board'>
-              {this.state.chosenCharacters.map((character: string, index: number): JSX.Element =>
+              {this.state.board.map((character: string, index: number): JSX.Element =>
                 <div className='board-square' key={index}>{character}</div>
               )}
             </div>
