@@ -1,7 +1,8 @@
 import React, { Component, FormEvent } from 'react'
+import { remove, shuffle } from 'lodash'
 import { Checkbox } from './Checkbox'
 
-export class CreateBoardForm extends Component<{}, { chosenCharacters: string[] }> {
+export class CreateBoardForm extends Component<{}, { chosenCharacters: string[], showBoard: boolean }> {
   baseCharacters: string[] = [
     "Arya Stark",
     "Sansa Stark",
@@ -39,7 +40,8 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[] 
   ]
 
   state = {
-    chosenCharacters: [...this.baseCharacters]
+    chosenCharacters: [...this.baseCharacters],
+    showBoard: false
   }
 
   handleCheckboxChange = (event: FormEvent): void => {
@@ -49,27 +51,24 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[] 
     if (target.checked) {
       chosenCharacters.push(target.name)
     } else {
-      chosenCharacters = chosenCharacters.filter((character: string) => character !== target.name)
+      remove(chosenCharacters, (character: string): boolean => character === target.name)
     }
 
     this.setState({ chosenCharacters })
   }
 
-  buttonEnabled = (): boolean => {
-    return this.state.chosenCharacters.length === 25
-  }
-
-  generateBoard = () => {
-
+  shuffleBoard = (): void => {
+    const newOrder: string[] = shuffle(this.state.chosenCharacters)
+    this.setState({ showBoard: true, chosenCharacters: newOrder })
   }
 
   render() {
-    const buttonDisabled: boolean = !this.buttonEnabled()
+    const buttonDisabled: boolean = this.state.chosenCharacters.length !== 25
 
     return (
       <div style={{display: 'flex'}}>
         <div>
-          {this.baseCharacters.map((character, index) =>
+          {this.baseCharacters.map((character: string, index: number): JSX.Element =>
             <Checkbox
               key={index}
               label={character}
@@ -79,7 +78,7 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[] 
           )}
         </div>
         <div>
-          {this.optionalCharacters.map((character, index) =>
+          {this.optionalCharacters.map((character: string, index: number): JSX.Element =>
             <Checkbox
               key={30 + index}
               label={character}
@@ -87,7 +86,14 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[] 
             />
           )}
         </div>
-        <button disabled={buttonDisabled} onClick={this.generateBoard}>Generate Board</button>
+        <button disabled={buttonDisabled} onClick={this.shuffleBoard}>Generate a new board</button>
+        {this.state.showBoard &&
+          <div className='board'>
+            {this.state.chosenCharacters.map((character: string, index: number): JSX.Element =>
+              <div className='board-square' key={index}>{character}</div>
+            )}
+          </div>
+        }
       </div>
     )
   }
