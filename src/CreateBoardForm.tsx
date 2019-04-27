@@ -39,7 +39,7 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[] 
   ]
 
   state = {
-    chosenCharacters: this.baseCharacters
+    chosenCharacters: [...this.baseCharacters]
   }
 
   handleCheckboxChange = (event: FormEvent): void => {
@@ -55,11 +55,17 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[] 
     this.setState({ chosenCharacters })
   }
 
+  buttonEnabled = (): boolean => {
+    return this.state.chosenCharacters.length === 25
+  }
+
   generateBoard = () => {
 
   }
 
   render() {
+    const buttonDisabled: boolean = !this.buttonEnabled()
+
     return (
       <div style={{display: 'flex'}}>
         <div>
@@ -81,7 +87,7 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[] 
             />
           )}
         </div>
-        <button disabled onClick={this.generateBoard}>Generate Board</button>
+        <button disabled={buttonDisabled} onClick={this.generateBoard}>Generate Board</button>
       </div>
     )
   }
