@@ -4,6 +4,12 @@ body {
 }
 
 h1 {
+  margin: 0;
+  font-weight: normal;
+  font-size: 36px;
+}
+
+h2 {
   font-size: 20px;
   margin: 0 0 10px;
   font-weight: normal;
@@ -46,19 +52,78 @@ input {
   }
 }
 
+.checkbox-label {
+  display: flex;
+  padding: 5px 0;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  height: 40vw;
+  width: 40vw;
+  min-height: 475px;
+  min-width: 475px;
+  border: 1px solid black;
+  align-self: center;
+  margin-bottom: 30px;
+
+  .board-square {
+    border: 1px solid black;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  &.small {
+    height: 20vw;
+    width: 20vw;
+    min-height: 300px;
+    min-width: 300px;
+
+    .board-square {
+      font-size: 10px;
+    }
+  }
+}
+
+.all-boards {
+  margin: 0 10vw;
+
+  .create-new {
+    text-align: right;
+  }
+
+  .title {
+    border-bottom: 2px solid black;
+  }
+
+  .board-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin-top: 20px;
+
+    .board-with-name {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h2 {
+        margin: 0;
+      }
+    }
+  }
+}
+
 .create-board-form {
   display: flex;
 
   .character-selection {
     display: flex;
     flex: 1;
-    flex-direction: column;
-
-    .names {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 25px;
-    }
+    justify-content: space-around;
   }
 
   .board-generation {
@@ -66,37 +131,9 @@ input {
     flex: 1;
     flex-direction: column;
 
-    .board {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-      height: 40vw;
-      width: 40vw;
-      min-height: 475px;
-      min-width: 475px;
-      border: 1px solid black;
-      align-self: center;
-      margin-bottom: 30px;
-
-      .board-square {
-        border: 1px solid black;
-        padding: 5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-      }
-    }
-
     .save-board {
       display: flex;
       justify-content: space-evenly;
     }
   }
 }
-
-.checkbox-label {
-  display: flex;
-  padding: 5px 0;
-}
-
-

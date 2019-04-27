@@ -1,5 +1,6 @@
 import React, { Component, FormEvent } from 'react'
 import { remove, shuffle } from 'lodash'
+import { Board } from './Board'
 import { Checkbox } from './Checkbox'
 
 export class CreateBoardForm extends Component<{}, { chosenCharacters: string[], showBoard: boolean, board: string[], boardName: string }> {
@@ -77,39 +78,33 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[],
     return (
       <div className='create-board-form'>
         <div className='character-selection'>
-          <div className='names'>
-            <div>
-              <h1>Base characters:</h1>
-              {this.baseCharacters.map((character: string, index: number): JSX.Element =>
-                <Checkbox
-                  key={index}
-                  label={character}
-                  checked
-                  disabled
-                />
-              )}
-            </div>
-            <div>
-              <h1>Select 5 additional characters:</h1>
-              {this.optionalCharacters.map((character: string, index: number): JSX.Element =>
-                <Checkbox
-                  key={30 + index}
-                  label={character}
-                  onChange={this.handleCheckboxChange}
-                />
-              )}
-            </div>
+          <div>
+            <h2>Base characters:</h2>
+            {this.baseCharacters.map((character: string, index: number): JSX.Element =>
+              <Checkbox
+                key={index}
+                label={character}
+                checked
+                disabled
+              />
+            )}
           </div>
-          <button disabled={buttonDisabled} onClick={this.shuffleBoard}>Generate a new board</button>
+          <div>
+            <h2>Select 5 additional characters:</h2>
+            {this.optionalCharacters.map((character: string, index: number): JSX.Element =>
+              <Checkbox
+                key={30 + index}
+                label={character}
+                onChange={this.handleCheckboxChange}
+              />
+            )}
+            <button disabled={buttonDisabled} onClick={this.shuffleBoard}>Generate a new board</button>
+          </div>
         </div>
         <div className='board-generation'>
           {this.state.showBoard &&
             <>
-              <div className='board'>
-                {this.state.board.map((character: string, index: number): JSX.Element =>
-                  <div className='board-square' key={index}>{character}</div>
-                )}
-              </div>
+              <Board board={this.state.board} />
               <div className='save-board'>
                 <input
                   type='text'
