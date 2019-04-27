@@ -48,7 +48,7 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[],
   }
 
   handleCheckboxChange = (event: FormEvent): void => {
-    let { chosenCharacters } = this.state
+    let chosenCharacters = [...this.state.chosenCharacters]
     const target = event.target as HTMLInputElement
 
     if (target.checked) {
