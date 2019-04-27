@@ -2,7 +2,7 @@ import React, { Component, FormEvent } from 'react'
 import { remove, shuffle } from 'lodash'
 import { Checkbox } from './Checkbox'
 
-export class CreateBoardForm extends Component<{}, { chosenCharacters: string[], showBoard: boolean, board: string[] }> {
+export class CreateBoardForm extends Component<{}, { chosenCharacters: string[], showBoard: boolean, board: string[], boardName: string }> {
   baseCharacters: string[] = [
     "Arya Stark",
     "Sansa Stark",
@@ -44,7 +44,8 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[],
   state = {
     chosenCharacters: [] as string[],
     showBoard: false,
-    board: [] as string[]
+    board: [] as string[],
+    boardName: ''
   }
 
   handleCheckboxChange = (event: FormEvent): void => {
@@ -65,6 +66,11 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[],
     this.setState({ showBoard: true, board })
   }
 
+  handleNameChange = (event: FormEvent): void => {
+    const target = event.target as HTMLInputElement
+    this.setState({ boardName: target.value })
+  }
+
   render() {
     const buttonDisabled: boolean = this.state.chosenCharacters.length + this.baseCharacters.length !== 25
 
@@ -73,7 +79,7 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[],
         <div className='character-selection'>
           <div className='names'>
             <div>
-              <h1>Base Characters:</h1>
+              <h1>Base characters:</h1>
               {this.baseCharacters.map((character: string, index: number): JSX.Element =>
                 <Checkbox
                   key={index}
@@ -98,11 +104,23 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[],
         </div>
         <div className='board-generation'>
           {this.state.showBoard &&
-            <div className='board'>
-              {this.state.board.map((character: string, index: number): JSX.Element =>
-                <div className='board-square' key={index}>{character}</div>
-              )}
-            </div>
+            <>
+              <div className='board'>
+                {this.state.board.map((character: string, index: number): JSX.Element =>
+                  <div className='board-square' key={index}>{character}</div>
+                )}
+              </div>
+              <div className='save-board'>
+                <input
+                  type='text'
+                  name='boardName'
+                  value={this.state.boardName}
+                  placeholder='Enter your name'
+                  onChange={this.handleNameChange}
+                />
+                <button>Save your board!</button>
+              </div>
+            </>
           }
         </div>
       </div>

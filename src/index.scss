@@ -11,7 +11,6 @@ h1 {
 
 button {
   align-self: center;
-  margin: 25px 0;
   background-color: dodgerblue;
   color: white;
   outline: none;
@@ -36,6 +35,17 @@ button {
   }
 }
 
+input {
+  font-size: 20px;
+  border-radius: 3px;
+  border: 1px solid black;
+  padding: 15px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
 .create-board-form {
   display: flex;
 
@@ -47,11 +57,14 @@ button {
     .names {
       display: flex;
       justify-content: space-around;
+      margin-bottom: 25px;
     }
   }
 
   .board-generation {
+    display: flex;
     flex: 1;
+    flex-direction: column;
 
     .board {
       display: grid;
@@ -61,15 +74,22 @@ button {
       min-height: 475px;
       min-width: 475px;
       border: 1px solid black;
+      align-self: center;
+      margin-bottom: 30px;
+
+      .board-square {
+        border: 1px solid black;
+        padding: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
     }
 
-    .board-square {
-      border: 1px solid black;
-      padding: 5px;
+    .save-board {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+      justify-content: space-evenly;
     }
   }
 }
