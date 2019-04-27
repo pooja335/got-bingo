@@ -2,9 +2,9 @@ import React, { FC } from 'react'
 
 export const Checkbox: FC<CheckBoxProps> = (props) => {
   return (
-    <label style={{display: 'flex'}}>
+    <label className='checkbox-label'>
       <input
-        type="checkbox"
+        type='checkbox'
         name={ props.label }
         checked={ props.checked }
         onChange={ props.onChange }
