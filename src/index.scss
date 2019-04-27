@@ -1,0 +1,82 @@
+body {
+  font-family: sans-serif;
+  padding-top: 30px;
+}
+
+h1 {
+  font-size: 20px;
+  margin: 0 0 10px;
+  font-weight: normal;
+}
+
+button {
+  align-self: center;
+  margin: 25px 0;
+  background-color: dodgerblue;
+  color: white;
+  outline: none;
+  border-radius: 40px;
+  border: none;
+  font-size: 20px;
+  padding: 15px 30px;
+  width: fit-content;
+
+  &:hover {
+    background-color: darken(dodgerblue, 10%);
+    cursor: pointer;
+  }
+
+  &:active {
+    background-color: darken(dodgerblue, 20%);
+  }
+
+  &:disabled {
+    background-color: lightgray;
+    cursor: not-allowed;
+  }
+}
+
+.create-board-form {
+  display: flex;
+
+  .character-selection {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    .names {
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+
+  .board-generation {
+    flex: 1;
+
+    .board {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      height: 40vw;
+      width: 40vw;
+      min-height: 475px;
+      min-width: 475px;
+      border: 1px solid black;
+    }
+
+    .board-square {
+      border: 1px solid black;
+      padding: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+  }
+}
+
+.checkbox-label {
+  display: flex;
+  padding: 5px 0;
+}
+
+
