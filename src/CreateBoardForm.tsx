@@ -3,7 +3,7 @@ import { remove, shuffle } from 'lodash'
 import { Board } from './Board'
 import { Checkbox } from './Checkbox'
 
-export class CreateBoardForm extends Component<{}, { chosenCharacters: string[], showBoard: boolean, board: string[], boardName: string }> {
+export class CreateBoardForm extends Component<{ togglePage: any }, { chosenCharacters: string[], showBoard: boolean, board: string[], boardName: string }> {
   baseCharacters: string[] = [
     "Arya Stark",
     "Sansa Stark",
@@ -102,6 +102,7 @@ export class CreateBoardForm extends Component<{}, { chosenCharacters: string[],
           </div>
         </div>
         <div className='board-generation'>
+          <div className='close-icon' onClick={this.props.togglePage}>&#10005;</div>
           {this.state.showBoard &&
             <>
               <Board board={this.state.board} />

@@ -1,12 +1,8 @@
-import React, { Component } from 'react'
+import React, { FC } from 'react'
 import { Board } from './Board'
 
-export class AllBoards extends Component<{}, { showForm: boolean }> {
-  state = {
-    showForm: false
-  }
-
-  boards = [{
+export const AllBoards: FC<{ togglePage: any }> = ({ togglePage }) => {
+  const boards = [{
     name: 'Ben',
     board: ["Arya Stark", "Sansa Stark", "Bran Stark", "Jon Snow", "Theon Greyjoy", "Yara Greyjoy", "Euron Greyjoy", "Cersei Lannister", "Jaime Lannister", "Tyrion Lannister", "Sam Tarly", "Tormund Giantsbane", "Brienne of Tarth", "Gendry", "Podrick", "Danaerys Targaryen", "Jorah Mormont", "Davos Seaworth", "Lyanna Mormont", "The Night King", "Lord Varys", "Missandei", "Grey Worm", "The Hound", "Beric Dondarrion"]
   },
@@ -23,22 +19,20 @@ export class AllBoards extends Component<{}, { showForm: boolean }> {
     board: ["Theon Greyjoy", "Tyrion Lannister", "Bran Stark", "Jon Snow", "Jorah Mormont", "Euron Greyjoy", "Tormund Giantsbane", "Arya Stark", "Cersei Lannister", "Jaime Lannister", "Brienne of Tarth", "Sam Tarly", "Podrick", "Yara Greyjoy", "Missandei", "Sansa Stark", "Lord Varys", "The Night King", "Lyanna Mormont", "The Hound", "Gendry", "Danaerys Targaryen", "Beric Dondarrion", "Grey Worm", "Davos Seaworth"]
   }]
 
-  render() {
-    return (
-      <div className='all-boards'>
-        <div className='create-new'>
-          <button>Create New</button>
-        </div>
-        <h1 className='title'>All Boards</h1>
-        <div className='board-grid'>
-          {this.boards.map((boardObject: { name: string, board: string[] }): JSX.Element =>
-            <div className='board-with-name'>
-              <h2>{boardObject.name}</h2>
-              <Board board={boardObject.board} small={true} />
-            </div>
-          )}
-        </div>
+  return (
+    <div className='all-boards'>
+      <div className='create-new'>
+        <button onClick={togglePage}>Create New</button>
       </div>
-    )
-  }
+      <h1 className='title'>All Boards</h1>
+      <div className='board-grid'>
+        {boards.map((boardObject: { name: string, board: string[] }): JSX.Element =>
+          <div className='board-with-name'>
+            <h2>{boardObject.name}</h2>
+            <Board board={boardObject.board} small={true} />
+          </div>
+        )}
+      </div>
+    </div>
+  )
 }
