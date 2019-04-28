@@ -4,9 +4,9 @@ import { Board } from './Board'
 import { Checkbox } from './Checkbox'
 import { database } from './firebaseConfig'
 
-const PropsType = { togglePage: any }
+type PropsType = { togglePage: any }
 
-const StateType = {
+type StateType = {
   chosenCharacterNames: string[],
   showBoard: boolean,
   board: string[],
