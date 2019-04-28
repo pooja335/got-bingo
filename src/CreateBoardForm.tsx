@@ -51,6 +51,18 @@ export class CreateBoardForm extends Component<{ togglePage: any }, { chosenChar
     this.setState({ boardName: target.value })
   }
 
+  saveBoard = (): void => {
+    const { boardName, board } = this.state
+    const newBoardRef = database.ref('/boards').push()
+
+    newBoardRef.set({
+      name: boardName,
+      board
+    })
+
+    this.props.togglePage()
+  }
+
   render() {
     const buttonDisabled: boolean = this.state.chosenCharacters.length + this.state.baseCharacters.length !== 25
 
@@ -93,7 +105,7 @@ export class CreateBoardForm extends Component<{ togglePage: any }, { chosenChar
                   placeholder='Enter your name'
                   onChange={this.handleNameChange}
                 />
-                <button>Save your board!</button>
+                <button onClick={this.saveBoard}>Save your board!</button>
               </div>
             </>
           }
