@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/got-bingo/static/css/main.2a494b20.chunk.css",
+    "main.js": "/got-bingo/static/js/main.bec07470.chunk.js",
+    "main.js.map": "/got-bingo/static/js/main.bec07470.chunk.js.map",
+    "runtime~main.js": "/got-bingo/static/js/runtime~main.cdf91135.js",
+    "runtime~main.js.map": "/got-bingo/static/js/runtime~main.cdf91135.js.map",
+    "static/js/2.c4c3f6a9.chunk.js": "/got-bingo/static/js/2.c4c3f6a9.chunk.js",
+    "static/js/2.c4c3f6a9.chunk.js.map": "/got-bingo/static/js/2.c4c3f6a9.chunk.js.map",
+    "index.html": "/got-bingo/index.html",
+    "precache-manifest.3cefb290dad0c629bdc938a37e5cfcac.js": "/got-bingo/precache-manifest.3cefb290dad0c629bdc938a37e5cfcac.js",
+    "service-worker.js": "/got-bingo/service-worker.js",
+    "static/css/main.2a494b20.chunk.css.map": "/got-bingo/static/css/main.2a494b20.chunk.css.map"
+  }
+}
