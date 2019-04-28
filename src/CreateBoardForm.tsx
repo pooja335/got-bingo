@@ -4,16 +4,27 @@ import { Board } from './Board'
 import { Checkbox } from './Checkbox'
 import { database } from './firebaseConfig'
 
-export class CreateBoardForm extends Component<{ togglePage: any }, { chosenCharacters: string[], showBoard: boolean, board: string[], boardName: string, baseCharacters: string[], optionalCharacters: string[] }> {
+const PropsType = { togglePage: any }
+
+const StateType = {
+  chosenCharacterNames: string[],
+  showBoard: boolean,
+  board: string[],
+  boardName: string,
+  baseCharacterNames: string[],
+  optionalCharacterNames: string[]
+}
+
+export class CreateBoardForm extends Component<PropsType, StateType> {
   constructor(props) {
     super(props)
     this.state = {
-      chosenCharacters: [] as string[],
+      chosenCharacterNames: [] as string[],
       showBoard: false,
       board: [] as string[],
       boardName: '',
-      baseCharacters: [] as string[],
-      optionalCharacters: [] as string[]
+      baseCharacterNames: [] as string[],
+      optionalCharacterNames: [] as string[]
     }
 
     this.getCharacters()
@@ -21,28 +32,28 @@ export class CreateBoardForm extends Component<{ togglePage: any }, { chosenChar
 
   getCharacters = (): void => {
     database.ref('/characters').once('value').then(characters => {
-      const baseCharacters: string[] = characters.val().filter(character => character.required).map(character => character.name)
-      const optionalCharacters: string[] = characters.val().filter(character => !character.required).map(character => character.name)
+      const baseCharacterNames: string[] = characters.val().filter(character => character.required).map(character => character.name)
+      const optionalCharacterNames: string[] = characters.val().filter(character => !character.required).map(character => character.name)
 
-      this.setState({ baseCharacters, optionalCharacters })
+      this.setState({ baseCharacterNames, optionalCharacterNames })
     })
   }
 
   handleCheckboxChange = (event: FormEvent): void => {
-    let chosenCharacters = [...this.state.chosenCharacters]
+    let chosenCharacterNames = [...this.state.chosenCharacterNames]
     const target = event.target as HTMLInputElement
 
     if (target.checked) {
-      chosenCharacters.push(target.name)
+      chosenCharacterNames.push(target.name)
     } else {
-      remove(chosenCharacters, (character: string): boolean => character === target.name)
+      remove(chosenCharacterNames, (character: string): boolean => character === target.name)
     }
 
-    this.setState({ chosenCharacters })
+    this.setState({ chosenCharacterNames })
   }
 
   shuffleBoard = (): void => {
-    const board: string[] = shuffle(this.state.baseCharacters.concat(this.state.chosenCharacters))
+    const board: string[] = shuffle(this.state.baseCharacterNames.concat(this.state.chosenCharacterNames))
     this.setState({ showBoard: true, board })
   }
 
@@ -64,14 +75,14 @@ export class CreateBoardForm extends Component<{ togglePage: any }, { chosenChar
   }
 
   render() {
-    const buttonDisabled: boolean = this.state.chosenCharacters.length + this.state.baseCharacters.length !== 25
+    const buttonDisabled: boolean = this.state.chosenCharacterNames.length + this.state.baseCharacterNames.length !== 25
 
     return (
       <div className='create-board-form'>
         <div className='character-selection'>
           <div>
             <h2>Base characters:</h2>
-            {this.state.baseCharacters.map((character: string): JSX.Element =>
+            {this.state.baseCharacterNames.map((character: string): JSX.Element =>
               <Checkbox
                 key={character}
                 label={character}
@@ -82,7 +93,7 @@ export class CreateBoardForm extends Component<{ togglePage: any }, { chosenChar
           </div>
           <div>
             <h2>Select 5 additional characters:</h2>
-            {this.state.optionalCharacters.map((character: string): JSX.Element =>
+            {this.state.optionalCharacterNames.map((character: string): JSX.Element =>
               <Checkbox
                 key={character}
                 label={character}
