@@ -21,8 +21,8 @@ export class CreateBoardForm extends Component<{ togglePage: any }, { chosenChar
 
   getCharacters = (): void => {
     database.ref('/characters').once('value').then(characters => {
-      const baseCharacters = characters.val().filter(character => character.required).map(character => character.name)
-      const optionalCharacters = characters.val().filter(character => !character.required).map(character => character.name)
+      const baseCharacters: string[] = characters.val().filter(character => character.required).map(character => character.name)
+      const optionalCharacters: string[] = characters.val().filter(character => !character.required).map(character => character.name)
 
       this.setState({ baseCharacters, optionalCharacters })
     })
@@ -71,9 +71,9 @@ export class CreateBoardForm extends Component<{ togglePage: any }, { chosenChar
         <div className='character-selection'>
           <div>
             <h2>Base characters:</h2>
-            {this.state.baseCharacters.map((character: string, index: number): JSX.Element =>
+            {this.state.baseCharacters.map((character: string): JSX.Element =>
               <Checkbox
-                key={index}
+                key={character}
                 label={character}
                 checked
                 disabled
@@ -82,14 +82,14 @@ export class CreateBoardForm extends Component<{ togglePage: any }, { chosenChar
           </div>
           <div>
             <h2>Select 5 additional characters:</h2>
-            {this.state.optionalCharacters.map((character: string, index: number): JSX.Element =>
+            {this.state.optionalCharacters.map((character: string): JSX.Element =>
               <Checkbox
-                key={30 + index}
+                key={character}
                 label={character}
                 onChange={this.handleCheckboxChange}
               />
             )}
-            <button disabled={buttonDisabled} onClick={this.shuffleBoard}>Generate a new board</button>
+            <button disabled={buttonDisabled} onClick={this.shuffleBoard}>Generate or shuffle your board</button>
           </div>
         </div>
         <div className='board-generation'>
