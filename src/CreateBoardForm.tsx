@@ -7,53 +7,59 @@ import { database } from './firebaseConfig'
 type PropsType = { togglePage: any }
 
 type StateType = {
-  chosenCharacterNames: string[],
+  chosenCharacters: CharacterType[],
   showBoard: boolean,
-  board: string[],
+  board: CharacterType[],
   boardName: string,
-  baseCharacterNames: string[],
-  optionalCharacterNames: string[]
+  baseCharacters: CharacterType[],
+  optionalCharacters: CharacterType[]
+}
+
+type CharacterType = {
+  name: string,
+  alive: boolean
 }
 
 export class CreateBoardForm extends Component<PropsType, StateType> {
   constructor(props) {
     super(props)
     this.state = {
-      chosenCharacterNames: [] as string[],
+      chosenCharacters: [] as CharacterType[],
       showBoard: false,
-      board: [] as string[],
+      board: [] as CharacterType[],
       boardName: '',
-      baseCharacterNames: [] as string[],
-      optionalCharacterNames: [] as string[]
+      baseCharacters: [] as CharacterType[],
+      optionalCharacters: [] as CharacterType[]
     }
 
     this.getCharacters()
   }
 
   getCharacters = (): void => {
-    database.ref('/characters').once('value').then(characters => {
-      const baseCharacterNames: string[] = characters.val().filter(character => character.required).map(character => character.name)
-      const optionalCharacterNames: string[] = characters.val().filter(character => !character.required).map(character => character.name)
+    database.ref('/baseCharacters').once('value').then(characters => {
+      this.setState({ baseCharacters: characters.val() })
+    })
 
-      this.setState({ baseCharacterNames, optionalCharacterNames })
+    database.ref('/optionalCharacters').once('value').then(characters => {
+      this.setState({ optionalCharacters: characters.val() })
     })
   }
 
   handleCheckboxChange = (event: FormEvent): void => {
-    let chosenCharacterNames = [...this.state.chosenCharacterNames]
+    let chosenCharacters = [...this.state.chosenCharacters]
     const target = event.target as HTMLInputElement
 
     if (target.checked) {
-      chosenCharacterNames.push(target.name)
+      chosenCharacters.push(target.name)
     } else {
-      remove(chosenCharacterNames, (character: string): boolean => character === target.name)
+      remove(chosenCharacters, (character: string): boolean => character === target.name)
     }
 
-    this.setState({ chosenCharacterNames })
+    this.setState({ chosenCharacters })
   }
 
   shuffleBoard = (): void => {
-    const board: string[] = shuffle(this.state.baseCharacterNames.concat(this.state.chosenCharacterNames))
+    const board: string[] = shuffle(this.state.baseCharacters.concat(this.state.chosenCharacters))
     this.setState({ showBoard: true, board })
   }
 
@@ -75,14 +81,14 @@ export class CreateBoardForm extends Component<PropsType, StateType> {
   }
 
   render() {
-    const buttonDisabled: boolean = this.state.chosenCharacterNames.length + this.state.baseCharacterNames.length !== 25
+    const buttonDisabled: boolean = this.state.chosenCharacters.length + this.state.baseCharacters.length !== 25
 
     return (
       <div className='create-board-form'>
         <div className='character-selection'>
           <div>
             <h2>Base characters:</h2>
-            {this.state.baseCharacterNames.map((character: string): JSX.Element =>
+            {this.state.baseCharacters.map((character: string): JSX.Element =>
               <Checkbox
                 key={character}
                 label={character}
@@ -93,7 +99,7 @@ export class CreateBoardForm extends Component<PropsType, StateType> {
           </div>
           <div>
             <h2>Select 5 additional characters:</h2>
-            {this.state.optionalCharacterNames.map((character: string): JSX.Element =>
+            {this.state.optionalCharacters.map((character: string): JSX.Element =>
               <Checkbox
                 key={character}
                 label={character}
