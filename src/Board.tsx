@@ -19,10 +19,10 @@ export class Board extends Component<{ board: string[], small?: boolean }, { cha
   render() {
     return (
       <div className={this.props.small ? 'small board' : 'board'}>
-        {this.props.board.map((character: string, index: number): JSX.Element =>
+        {this.props.board.map((character: string): JSX.Element =>
           <div
             className={this.state.characterInfo[character] && !this.state.characterInfo[character].alive ? 'board-square dead' : 'board-square'}
-            key={index}>
+            key={character}>
             {character}
           </div>
         )}
