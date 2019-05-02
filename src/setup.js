@@ -38,19 +38,27 @@ const optionalCharacters = [
   "Rhaegal"
 ]
 
-const createCharacterArray = (characterList) => {
-  return characterList.map(character => {
-    return {
-      name: character,
-      alive: true
+const createCharacterStructure = () => {
+  let baseCharacterObject = baseCharacters.reduce((acc, character) => {
+    acc[character] = {
+      alive: true,
+      required: true
     }
-  })
+    return acc
+  }, {})
+
+  return optionalCharacters.reduce((acc, character) => {
+    acc[character] = {
+      alive: true,
+      required: false
+    }
+    return acc
+  }, baseCharacterObject)
 }
 
 // TODO: change this to set instead of update once other code is done
-const setCharacters = () => {
-  database.ref().update({ baseCharacters: createCharacterArray(baseCharacters) })
-  database.ref().update({ optionalCharacters: createCharacterArray(optionalCharacters) })
+const seedCharacters = () => {
+  database.ref().update({ allCharacters: createCharacterStructure() })
 }
 
-setCharacters()
+seedCharacters()

@@ -75,6 +75,11 @@ input {
     justify-content: center;
     align-items: center;
     text-align: center;
+
+    &.dead {
+      background-color: darkred;
+      color: white;
+    }
   }
 
   &.small {
