@@ -31,11 +31,30 @@ export class CreateBoardForm extends Component<PropsType, StateType> {
   }
 
   getCharacters = (): void => {
-    database.ref('/characters').once('value').then(characters => {
-      const baseCharacterNames: string[] = characters.val().filter(character => character.required).map(character => character.name)
-      const optionalCharacterNames: string[] = characters.val().filter(character => !character.required).map(character => character.name)
+    database.ref('/allCharacters').once('value').then(characters => {
+      type characterNamesType = {
+        baseCharacterNames: string[],
+        optionalCharacterNames: string[]
+      }
 
-      this.setState({ baseCharacterNames, optionalCharacterNames })
+      const startingAcc: characterNamesType = {
+        baseCharacterNames: [],
+        optionalCharacterNames: []
+      }
+
+      const characterNames: characterNamesType = Object.keys(characters.val()).reduce((acc, characterName) => {
+        if (characters.val()[characterName].required) {
+          acc.baseCharacterNames.push(characterName)
+        } else {
+          acc.optionalCharacterNames.push(characterName)
+        }
+        return acc
+      }, startingAcc)
+
+      this.setState({
+        baseCharacterNames: characterNames.baseCharacterNames,
+        optionalCharacterNames: characterNames.optionalCharacterNames
+      })
     })
   }
 
