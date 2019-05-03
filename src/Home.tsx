@@ -1,18 +1,15 @@
-import React, { Component } from 'react'
+import React, { FC, useState } from 'react'
 import { AllBoards } from './AllBoards'
 import { CreateBoardForm } from './CreateBoardForm'
 
-export class Home extends Component<{}, { showForm: boolean }> {
-  state = { showForm: false }
+export const Home: FC = () => {
+  const [showForm, setShowForm] = useState(false)
+  const toggleShowForm = (): void => setShowForm(!showForm)
 
-  toggleShowForm = (): void => this.setState({ showForm: !this.state.showForm })
-
-  render() {
-    return (
-      <>
-        {!this.state.showForm && <AllBoards togglePage={this.toggleShowForm} /> }
-        {this.state.showForm && <CreateBoardForm togglePage={this.toggleShowForm} /> }
-      </>
-    )
-  }
+  return (
+    <>
+      {!showForm && <AllBoards togglePage={toggleShowForm} /> }
+      {showForm && <CreateBoardForm togglePage={toggleShowForm} /> }
+    </>
+  )
 }
