@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/got-bingo/static/css/main.39a773a2.chunk.css",
-    "main.js": "/got-bingo/static/js/main.bec07470.chunk.js",
-    "main.js.map": "/got-bingo/static/js/main.bec07470.chunk.js.map",
+    "main.css": "/got-bingo/static/css/main.75d58744.chunk.css",
+    "main.js": "/got-bingo/static/js/main.f6785f85.chunk.js",
+    "main.js.map": "/got-bingo/static/js/main.f6785f85.chunk.js.map",
     "runtime~main.js": "/got-bingo/static/js/runtime~main.cdf91135.js",
     "runtime~main.js.map": "/got-bingo/static/js/runtime~main.cdf91135.js.map",
-    "static/js/2.c4c3f6a9.chunk.js": "/got-bingo/static/js/2.c4c3f6a9.chunk.js",
-    "static/js/2.c4c3f6a9.chunk.js.map": "/got-bingo/static/js/2.c4c3f6a9.chunk.js.map",
+    "static/js/2.343b4573.chunk.js": "/got-bingo/static/js/2.343b4573.chunk.js",
+    "static/js/2.343b4573.chunk.js.map": "/got-bingo/static/js/2.343b4573.chunk.js.map",
     "index.html": "/got-bingo/index.html",
-    "precache-manifest.9f84684ad45ef5bc71377105bdd047ab.js": "/got-bingo/precache-manifest.9f84684ad45ef5bc71377105bdd047ab.js",
+    "precache-manifest.14b593b897051e1794c09e6bf7c9a4d0.js": "/got-bingo/precache-manifest.14b593b897051e1794c09e6bf7c9a4d0.js",
     "service-worker.js": "/got-bingo/service-worker.js",
-    "static/css/main.39a773a2.chunk.css.map": "/got-bingo/static/css/main.39a773a2.chunk.css.map"
+    "static/css/main.75d58744.chunk.css.map": "/got-bingo/static/css/main.75d58744.chunk.css.map"
   }
 }
